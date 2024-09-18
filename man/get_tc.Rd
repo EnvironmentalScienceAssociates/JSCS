@@ -9,7 +9,7 @@ get_tc(
 )
 }
 \arguments{
-\item{table}{DELVE table: meta, fish, tally, stomach, transport, transport_wq}
+\item{table}{DELVE table: meta, fish, plus, stomach, transport, transport_wq}
 }
 \description{
 Get DELVE trap collection tables
