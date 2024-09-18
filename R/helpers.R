@@ -100,8 +100,8 @@ create_links <- function(data, parent, child){
 #' @export
 #'
 
-prep_datetime <- function(x){
-  lubridate::with_tz(lubridate::mdy_hms(x), "America/Los_Angeles")
+prep_datetime <- function(x, tz = tz_loc){
+  lubridate::with_tz(lubridate::mdy_hms(x), tz)
 }
 
 

@@ -4,7 +4,7 @@
 \alias{prep_datetime}
 \title{Prepare DELVE datetime values}
 \usage{
-prep_datetime(x)
+prep_datetime(x, tz = tz_loc)
 }
 \arguments{
 \item{x}{DELVE datetime string}
