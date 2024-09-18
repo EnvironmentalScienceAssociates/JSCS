@@ -4,10 +4,14 @@
 \alias{prep_tc_meta}
 \title{Prepare DELVE trap collection metadata}
 \usage{
-prep_tc_meta(tc_meta_raw)
+prep_tc_meta(tc_meta_raw, min_date = min_tc_date, tz = tz_loc)
 }
 \arguments{
 \item{tc_meta_raw}{Unprocessed trap collection metadata}
+
+\item{min_date}{First date to use for trap collection data}
+
+\item{tz}{Time zone name}
 }
 \description{
 Prepare DELVE trap collection metadata
