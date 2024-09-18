@@ -88,7 +88,7 @@ create_links <- function(data, parent, child){
   child_list = strsplit(data[[child]], split = ", ")
   mapply(function(p, c) data.frame(parent = p, child = c),
          data[[parent]], child_list, SIMPLIFY = FALSE) |>
-    bind_rows()
+    dplyr::bind_rows()
 }
 
 #' Prepare DELVE datetime values
