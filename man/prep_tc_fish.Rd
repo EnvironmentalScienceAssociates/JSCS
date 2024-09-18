@@ -13,6 +13,8 @@ prep_tc_fish(
 )
 }
 \arguments{
+\item{tc_fish_raw}{Unprocessed trap collection fish measurement data}
+
 \item{tc_meta_raw}{Unprocessed trap collection metadata}
 
 \item{tc_meta}{Processed trap collection metadata}
@@ -20,8 +22,6 @@ prep_tc_fish(
 \item{min_date}{First date to use for trap collection data}
 
 \item{tz}{Time zone name}
-
-\item{tc_meta_fish}{Unprocessed trap collection fish measurement data}
 }
 \description{
 Prepare DELVE trap collection fish measurement data

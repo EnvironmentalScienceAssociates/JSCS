@@ -5,7 +5,7 @@
 \title{Get DELVE trap collection tables}
 \usage{
 get_tc(
-  table = c("meta", "fish", "tally", "stomach", "transport", "transport_wq")
+  table = c("meta", "fish", "plus", "stomach", "transport", "transport_wq")
 )
 }
 \arguments{
