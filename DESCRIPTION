@@ -11,7 +11,8 @@ LazyData: true
 Imports: 
     dplyr,
     lubridate,
-    tidyr
+    tidyr,
+    stringr
 Suggests:
     fulcrumr,
     delver
