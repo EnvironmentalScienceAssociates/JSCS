@@ -2,7 +2,7 @@
 #'
 #'
 #' @md
-#' @param table       DELVE table: meta, fish, tally, stomach, transport, transport_wq
+#' @param table       DELVE table: meta, fish, plus, stomach, transport, transport_wq
 #'
 #' @export
 #'
