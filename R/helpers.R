@@ -118,3 +118,21 @@ prep_dt_fulcrum <- function(date, time, tz = tz_loc){
   lubridate::force_tz(lubridate::ymd_hms(paste(date, lubridate::seconds_to_period(time))), tz)
 }
 
+#' Extract marks from mark status field
+#'
+#'
+#' @md
+#' @param data       Dataframe with mark_status column
+#'
+#' @export
+#'
+
+extract_mark <- function(data){
+  data |>
+    dplyr::mutate(NM = grepl("NM -", mark_status),
+                  UC = grepl("UC -", mark_status),
+                  LC = grepl("LC -", mark_status),
+                  BBY = grepl("BB-Y -", mark_status),
+                  VIE = grepl("VIE -", mark_status))
+}
+
