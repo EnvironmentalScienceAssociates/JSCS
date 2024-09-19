@@ -31,6 +31,7 @@ prep_tp_main <- function(tp_main_raw){
                     !contains("photos") & !contains("qc")) |>
     dplyr::mutate(shift_start = prep_dt_fulcrum(date, shift_start),
                   shift_end = prep_dt_fulcrum(date, shift_end),
+                  shift_hrs = as.numeric(difftime(shift_end, shift_start, units = "hours")),
                   trap_close = prep_dt_fulcrum(date, trap_close),
                   trap_open = prep_dt_fulcrum(date, trap_open))
 }
