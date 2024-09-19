@@ -9,7 +9,7 @@ prep_tp_perf_config(tp_perf_config_raw, tp_main)
 \arguments{
 \item{tp_perf_config_raw}{Unprocessed performance and configuration table}
 
-\item{tp_main}{Processed fish processing main table}
+\item{tp_main}{Processed trap platform main table}
 }
 \description{
 Prepare Fulcrum performance and configuration table

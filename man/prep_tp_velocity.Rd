@@ -9,7 +9,7 @@ prep_tp_velocity(tp_velocity_raw, tp_main)
 \arguments{
 \item{tp_velocity_raw}{Unprocessed velocity table}
 
-\item{tp_main}{Processed fish processing main table}
+\item{tp_main}{Processed trap platform main table}
 }
 \description{
 Prepare Fulcrum velocity table

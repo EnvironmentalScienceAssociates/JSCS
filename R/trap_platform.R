@@ -40,7 +40,7 @@ prep_tp_main <- function(tp_main_raw){
 #'
 #' @md
 #' @param tp_perf_config_raw     Unprocessed performance and configuration table
-#' @param tp_main                Processed fish processing main table
+#' @param tp_main                Processed trap platform main table
 #'
 #' @export
 #'
@@ -58,7 +58,7 @@ prep_tp_perf_config <- function(tp_perf_config_raw, tp_main){
 #'
 #' @md
 #' @param tp_velocity_raw     Unprocessed velocity table
-#' @param tp_main             Processed fish processing main table
+#' @param tp_main             Processed trap platform main table
 #'
 #' @export
 #'
@@ -75,7 +75,7 @@ prep_tp_velocity <- function(tp_velocity_raw, tp_main){
 #'
 #' @md
 #' @param tp_wq_raw           Unprocessed water quality table
-#' @param tp_main             Processed fish processing main table
+#' @param tp_main             Processed trap platform main table
 #'
 #' @export
 #'

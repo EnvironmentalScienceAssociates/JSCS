@@ -9,7 +9,7 @@ prep_tp_wq(tp_wq_raw, tp_main)
 \arguments{
 \item{tp_wq_raw}{Unprocessed water quality table}
 
-\item{tp_main}{Processed fish processing main table}
+\item{tp_main}{Processed trap platform main table}
 }
 \description{
 Prepare Fulcrum velocity table
