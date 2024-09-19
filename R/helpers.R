@@ -147,7 +147,7 @@ extract_mark <- function(data){
 
 extract_condition <- function(data){
   data |>
-    dplyr::mutate(injury = grepl("I -", mark_status),
-                  mortality = grepl("M -", mark_status))
+    dplyr::mutate(injury = grepl("I -", fish_condition),
+                  mortality = grepl("M -", fish_condition))
 }
 
