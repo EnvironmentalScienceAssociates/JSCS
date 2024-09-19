@@ -136,3 +136,18 @@ extract_mark <- function(data){
                   VIE = grepl("VIE -", mark_status))
 }
 
+#' Extract condition from fish_condition field
+#'
+#'
+#' @md
+#' @param data       Dataframe with fish_condition column
+#'
+#' @export
+#'
+
+extract_condition <- function(data){
+  data |>
+    dplyr::mutate(injury = grepl("I -", mark_status),
+                  mortality = grepl("M -", mark_status))
+}
+
