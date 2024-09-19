@@ -32,10 +32,10 @@ get_tc <- function(table = c("meta", "fish", "plus", "stomach", "transport", "tr
 prep_tc_meta <- function(tc_meta_raw, min_date = min_tc_date, tz = tz_loc){
   tc_meta_raw |>
     fix_names() |>
-    dplyr::mutate(start_datetime = prep_datetime(start_datetime),
-                  end_datetime = prep_datetime(end_datetime),
-                  trap_open_time = prep_datetime(trap_open_time),
-                  trap_closed_time = prep_datetime(trap_closed_time),
+    dplyr::mutate(start_datetime = prep_dt_delve(start_datetime),
+                  end_datetime = prep_dt_delve(end_datetime),
+                  trap_open_time = prep_dt_delve(trap_open_time),
+                  trap_closed_time = prep_dt_delve(trap_closed_time),
                   trap_hours = as.numeric(difftime(end_datetime, start_datetime, units = "hours")),
                   start_date = as.Date(start_datetime, tz = tz),
                   temp_c = ifelse(temp_c == 0, NA, temp_c),

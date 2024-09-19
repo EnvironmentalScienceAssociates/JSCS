@@ -100,7 +100,7 @@ create_links <- function(data, parent, child){
 #' @export
 #'
 
-prep_datetime <- function(x, tz = tz_loc){
+prep_dt_delve <- function(x, tz = tz_loc){
   lubridate::with_tz(lubridate::mdy_hms(x), tz)
 }
 
@@ -114,7 +114,7 @@ prep_datetime <- function(x, tz = tz_loc){
 #' @export
 #'
 
-make_datetime <- function(date, time, tz = tz_loc){
+prep_dt_fulcrum <- function(date, time, tz = tz_loc){
   lubridate::force_tz(lubridate::ymd_hms(paste(date, lubridate::seconds_to_period(time))), tz)
 }
 

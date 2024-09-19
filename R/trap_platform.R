@@ -29,10 +29,10 @@ prep_tp_main <- function(tp_main_raw){
     dplyr::rename(tp_main_id = `_record_id`) |>
     dplyr::select(!starts_with("_") & !contains("notes") & !contains("comments") &
                     !contains("photos") & !contains("qc")) |>
-    dplyr::mutate(shift_start = make_datetime(date, shift_start),
-                  shift_end = make_datetime(date, shift_end),
-                  trap_close = make_datetime(date, trap_close),
-                  trap_open = make_datetime(date, trap_open))
+    dplyr::mutate(shift_start = prep_dt_fulcrum(date, shift_start),
+                  shift_end = prep_dt_fulcrum(date, shift_end),
+                  trap_close = prep_dt_fulcrum(date, trap_close),
+                  trap_open = prep_dt_fulcrum(date, trap_open))
 }
 
 #' Prepare Fulcrum performance and configuration table
