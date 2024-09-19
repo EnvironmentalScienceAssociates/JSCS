@@ -104,4 +104,17 @@ prep_datetime <- function(x, tz = tz_loc){
   lubridate::with_tz(lubridate::mdy_hms(x), tz)
 }
 
+#' Make Fulcrum datetime from date and time fields
+#'
+#'
+#' @md
+#' @param date       Fulcrum date field
+#' @param time       Fulcrum time field
+#'
+#' @export
+#'
+
+make_datetime <- function(date, time, tz = tz_loc){
+  lubridate::force_tz(lubridate::ymd_hms(paste(date, lubridate::seconds_to_period(time))), tz)
+}
 
