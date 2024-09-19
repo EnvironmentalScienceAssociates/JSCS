@@ -33,7 +33,7 @@ prep_ss_main <- function(ss_main_raw){
 #'
 #' @md
 #' @param ss_predator_raw     Unprocessed predator table
-#' @param ss_main             Processed stomach sammpling main table
+#' @param ss_main             Processed stomach sampling main table
 #'
 #' @export
 #'
@@ -52,7 +52,7 @@ prep_ss_predator <- function(ss_predator_raw, ss_main){
 #'
 #' @md
 #' @param ss_contents_raw     Unprocessed stomach contents table
-#' @param ss_main             Processed stomach sammpling main table
+#' @param ss_main             Processed stomach sampling main table
 #'
 #' @export
 #'

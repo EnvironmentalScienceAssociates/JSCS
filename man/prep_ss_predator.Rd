@@ -9,7 +9,7 @@ prep_ss_predator(ss_predator_raw, ss_main)
 \arguments{
 \item{ss_predator_raw}{Unprocessed predator table}
 
-\item{ss_main}{Processed stomach sammpling main table}
+\item{ss_main}{Processed stomach sampling main table}
 }
 \description{
 Prepare Fulcrum predator table
