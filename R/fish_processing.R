@@ -43,7 +43,7 @@ prep_fp_fish <- function(fp_fish_raw, fp_main){
   fp_fish_raw |>
     dplyr::select(fp_fish_id = `_child_record_id`, fp_main_id = `_parent_id`,
                   species = species_measure, lifestage = lifestage_measure,
-                  measure_type, fork_length_mm, fish_viewer_id,
+                  measure_type, fl_mm = fork_length_mm, fish_viewer_id,
                   mark_status = mark_status_measure, pit_tag_id, floy_tag_id,
                   fish_condition = fish_condition_measure, stomach_sampled, disposition) |>
     dplyr::mutate(count = 1) |>
