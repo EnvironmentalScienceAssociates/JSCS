@@ -66,7 +66,8 @@ prep_tp_perf_config <- function(tp_perf_config_raw, tp_main){
 prep_tp_velocity <- function(tp_velocity_raw, tp_main){
   tp_velocity_raw |>
     dplyr::rename(tp_velocity_id = `_child_record_id`, tp_main_id = `_parent_id`) |>
-    dplyr::select(!starts_with("_")) |>
+    dplyr::select(!starts_with("_"))  |>
+    dplyr::mutate(velocity_fps = sqrt(u_fps^2 + v_fps^2 + w_fps^2)) |>
     dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check_number))
 }
 
