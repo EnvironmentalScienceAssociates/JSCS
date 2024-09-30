@@ -36,7 +36,8 @@ prep_tp_main <- function(tp_main_raw){
                   open_hrs = as.numeric(difftime(trap_open, trap_close, units = "hours"))) |>
     dplyr::relocate(shift_hrs, .after = shift_end) |>
     dplyr::relocate(open_hrs, .after = trap_open) |>
-    dplyr::relocate(tp_main_id, .after = dplyr::last_col())
+    dplyr::relocate(tp_main_id, .after = dplyr::last_col())  |>
+    dplyr::arrange(desc(date))
 }
 
 #' Prepare Fulcrum performance and configuration table
@@ -55,7 +56,8 @@ prep_tp_perf_config <- function(tp_perf_config_raw, tp_main){
     dplyr::select(!dplyr::starts_with("_")) |>
     dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check)) |>
     dplyr::relocate(date, trap_check, .before = tp_perf_config_id) |>
-    dplyr::relocate(tp_perf_config_id, tp_main_id, .after = dplyr::last_col())
+    dplyr::relocate(tp_perf_config_id, tp_main_id, .after = dplyr::last_col()) |>
+    dplyr::arrange(desc(date))
 }
 
 #' Prepare Fulcrum velocity table
@@ -75,7 +77,8 @@ prep_tp_velocity <- function(tp_velocity_raw, tp_main){
     dplyr::mutate(velocity_fps = sqrt(u_fps^2 + v_fps^2 + w_fps^2)) |>
     dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check)) |>
     dplyr::relocate(date, trap_check, .before = tp_velocity_id) |>
-    dplyr::relocate(tp_velocity_id, tp_main_id, .after = dplyr::last_col())
+    dplyr::relocate(tp_velocity_id, tp_main_id, .after = dplyr::last_col()) |>
+    dplyr::arrange(desc(date))
 }
 
 #' Prepare Fulcrum velocity table
@@ -94,5 +97,6 @@ prep_tp_wq <- function(tp_wq_raw, tp_main){
     dplyr::select(!starts_with("_")) |>
     dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check)) |>
     dplyr::relocate(date, trap_check, .before = tp_wq_id) |>
-    dplyr::relocate(tp_wq_id, tp_main_id, .after = dplyr::last_col())
+    dplyr::relocate(tp_wq_id, tp_main_id, .after = dplyr::last_col()) |>
+    dplyr::arrange(desc(date))
 }
