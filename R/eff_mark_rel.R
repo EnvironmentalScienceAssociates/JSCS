@@ -8,11 +8,11 @@
 #'
 
 get_emr <- function(table = c("main", "marking", "release", "fl")){
-  tp_tables = c("main" = "JSCS Efficiency Marking and Release 2024",
-                "marking" = "JSCS Efficiency Marking and Release 2024/marking",
-                "release" = "JSCS Efficiency Marking and Release 2024/release",
-                "fl" = "JSCS Efficiency Marking and Release 2024/fork_lengths")
-  fulcrumr::fulcrum_table(tp_tables[[table]])
+  emr_tables = c("main" = "JSCS Efficiency Marking and Release 2024",
+                 "marking" = "JSCS Efficiency Marking and Release 2024/marking",
+                 "release" = "JSCS Efficiency Marking and Release 2024/release",
+                 "fl" = "JSCS Efficiency Marking and Release 2024/fork_lengths")
+  fulcrumr::fulcrum_table(emr_tables[[table]])
 }
 
 #' Prepare Fulcrum efficiency marking and release main table
