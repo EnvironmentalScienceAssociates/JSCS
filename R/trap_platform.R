@@ -32,8 +32,10 @@ prep_tp_main <- function(tp_main_raw){
                   shift_end = prep_dt_fulcrum(date, shift_end),
                   shift_hrs = as.numeric(difftime(shift_end, shift_start, units = "hours")),
                   trap_close = prep_dt_fulcrum(date, trap_close),
-                  trap_open = prep_dt_fulcrum(date, trap_open)) |>
+                  trap_open = prep_dt_fulcrum(date, trap_open),
+                  open_hrs = as.numeric(difftime(trap_open, trap_close, units = "hours"))) |>
     dplyr::relocate(shift_hrs, .after = shift_end) |>
+    dplyr::relocate(open_hrs, .after = trap_open) |>
     dplyr::relocate(tp_main_id, .after = dplyr::last_col())
 }
 
