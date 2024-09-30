@@ -26,7 +26,9 @@ get_emr <- function(table = c("main", "marking", "release", "fl")){
 
 prep_emr_main <- function(emr_main_raw){
   emr_main_raw |>
-    dplyr::select(emr_main_id = `_record_id`, date_mark, date_release)
+    dplyr::rename(emr_main_id = `_record_id`) |>
+    dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
+    dplyr::relocate(emr_main_id, .after = dplyr::last_col())
 }
 
 #' Prepare Fulcrum efficiency marking table
@@ -43,7 +45,11 @@ prep_emr_mark <- function(emr_mark_raw, emr_main){
   emr_mark_raw |>
     dplyr::rename(emr_mark_id = `_child_record_id`, emr_main_id = `_parent_id`) |>
     dplyr::select(!starts_with("_")) |>
-    dplyr::left_join(dplyr::select(emr_main, emr_main_id, date = date_mark))
+    dplyr::left_join(dplyr::select(emr_main, emr_main_id, date = date_mark)) |>
+    dplyr::mutate(start_time = prep_dt_fulcrum(date, start_time),
+                  end_time = prep_dt_fulcrum(date, end_time)) |>
+    dplyr::relocate(date, .before = emr_mark_id) |>
+    dplyr::relocate(emr_mark_id, emr_main_id, .after = dplyr::last_col())
 }
 
 #' Prepare Fulcrum efficiency marking fork length table
@@ -60,7 +66,9 @@ prep_emr_fl <- function(emr_fl_raw, emr_mark){
   emr_fl_raw |>
     dplyr::rename(emr_fl_id = `_child_record_id`, emr_mark_id = `_parent_id`) |>
     dplyr::select(!starts_with("_")) |>
-    dplyr::left_join(dplyr::select(emr_mark, emr_mark_id, date = date_mark, release_batch))
+    dplyr::left_join(dplyr::select(emr_mark, emr_mark_id, date, release_batch)) |>
+    dplyr::relocate(date, .before = emr_fl_id) |>
+    dplyr::relocate(emr_fl_id, emr_mark_id, .after = dplyr::last_col())
 }
 
 #' Prepare Fulcrum efficiency release table
@@ -77,8 +85,8 @@ prep_emr_rel <- function(emr_rel_raw, emr_main){
   emr_rel_raw |>
     dplyr::rename(emr_rel_id = `_child_record_id`, emr_main_id = `_parent_id`) |>
     dplyr::select(!starts_with("_")) |>
-    dplyr::left_join(dplyr::select(emr_main, emr_main_id, date = date_release))|>
-    dplyr::left_join(data.frame(release_site = c("Standard", "Near"),
-                                LC = c(TRUE, FALSE))) |>
-    dplyr::mutate(BBY = TRUE)
+    dplyr::left_join(dplyr::select(emr_main, emr_main_id, date = date_release)) |>
+    dplyr::mutate(release_time = prep_dt_fulcrum(date, release_time)) |>
+    dplyr::relocate(date, .before = emr_rel_id) |>
+    dplyr::relocate(emr_rel_id, emr_main_id, .after = dplyr::last_col())
 }
