@@ -4,12 +4,12 @@
 \alias{prep_ss_contents}
 \title{Prepare Fulcrum stomach contents table}
 \usage{
-prep_ss_contents(ss_contents_raw, ss_main)
+prep_ss_contents(ss_contents_raw, ss_predator)
 }
 \arguments{
 \item{ss_contents_raw}{Unprocessed stomach contents table}
 
-\item{ss_main}{Processed stomach sampling main table}
+\item{ss_predator}{Processed stomach sampling predator table}
 }
 \description{
 Prepare Fulcrum stomach contents table
