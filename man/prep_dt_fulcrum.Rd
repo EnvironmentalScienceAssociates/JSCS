@@ -10,6 +10,8 @@ prep_dt_fulcrum(date, time, tz = tz_loc)
 \item{date}{Fulcrum date field}
 
 \item{time}{Fulcrum time field}
+
+\item{tz}{Time zone}
 }
 \description{
 Make Fulcrum datetime from date and time fields

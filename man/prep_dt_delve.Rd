@@ -8,6 +8,8 @@ prep_dt_delve(x, tz = tz_loc)
 }
 \arguments{
 \item{x}{DELVE datetime string}
+
+\item{tz}{Time zone}
 }
 \description{
 Prepare DELVE datetime values

@@ -96,6 +96,7 @@ create_links <- function(data, parent, child){
 #'
 #' @md
 #' @param x       DELVE datetime string
+#' @param tz      Time zone
 #'
 #' @export
 #'
@@ -110,12 +111,27 @@ prep_dt_delve <- function(x, tz = tz_loc){
 #' @md
 #' @param date       Fulcrum date field
 #' @param time       Fulcrum time field
+#' @param tz         Time zone
 #'
 #' @export
 #'
 
 prep_dt_fulcrum <- function(date, time, tz = tz_loc){
   lubridate::force_tz(lubridate::ymd_hms(paste(date, lubridate::seconds_to_period(time))), tz)
+}
+
+#' Make time string from Fulcrum time field
+#'
+#'
+#' @md
+#' @param time       Fulcrum time field
+#'
+#' @export
+#'
+
+prep_time_fulcrum <- function(time){
+  pd = lubridate::seconds_to_period(time)
+  sprintf("%02i:%02i", lubridate::hour(pd), lubridate::minute(pd))
 }
 
 #' Extract marks from mark status field

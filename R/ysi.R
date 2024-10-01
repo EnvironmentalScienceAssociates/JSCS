@@ -27,7 +27,7 @@ prep_ysi_main <- function(ysi_main_raw){
   ysi_main_raw |>
     dplyr::rename(ysi_main_id = `_record_id`) |>
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
-    dplyr::mutate(clock_time_pst = lubridate::seconds_to_period(clock_time_pst)) |>
+    dplyr::mutate(clock_time_pst = prep_time_fulcrum(clock_time_pst)) |>
     dplyr::relocate(ysi_main_id, .after = dplyr::last_col())  |>
     dplyr::arrange(desc(date))
 }
@@ -67,7 +67,7 @@ prep_ysi_depth <- function(ysi_depth_raw, ysi_sample){
     dplyr::rename(ysi_depth_id = `_child_record_id`, ysi_sample_id = `_parent_id`) |>
     dplyr::select(!dplyr::starts_with("_")) |>
     dplyr::left_join(dplyr::select(ysi_sample, ysi_sample_id, date, sample_location)) |>
-    dplyr::mutate(start_time_pst = lubridate::seconds_to_period(start_time_pst)) |>
+    dplyr::mutate(start_time_pst = prep_time_fulcrum(start_time_pst)) |>
     dplyr::relocate(date, sample_location, .before = ysi_depth_id) |>
     dplyr::relocate(ysi_depth_id, ysi_sample_id, .after = dplyr::last_col()) |>
     dplyr::arrange(desc(date))

@@ -47,8 +47,8 @@ prep_tb_buoy <- function(tb_buoy_raw, tb_main){
     dplyr::rename(tb_buoy_id = `_child_record_id`, tb_main_id = `_parent_id`) |>
     dplyr::select(!dplyr::starts_with("_")) |>
     dplyr::left_join(dplyr::select(tb_main, tb_main_id, date)) |>
-    dplyr::mutate(time_retrieved_pst = lubridate::seconds_to_period(time_retrieved_pst),
-                  time_deployed_pst = lubridate::seconds_to_period(time_deployed_pst)) |>
+    dplyr::mutate(time_retrieved_pst = prep_time_fulcrum(time_retrieved_pst),
+                  time_deployed_pst = prep_time_fulcrum(time_deployed_pst)) |>
     dplyr::relocate(date, .before = tb_buoy_id) |>
     dplyr::relocate(tb_buoy_id, tb_main_id, .after = dplyr::last_col()) |>
     dplyr::arrange(desc(date))
