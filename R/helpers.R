@@ -131,7 +131,7 @@ prep_dt_fulcrum <- function(date, time, tz = tz_loc){
 
 prep_time_fulcrum <- function(time){
   pd = lubridate::seconds_to_period(time)
-  sprintf("%02i:%02i", lubridate::hour(pd), lubridate::minute(pd))
+  ifelse(is.na(pd), NA_character_, sprintf("%02i:%02i", lubridate::hour(pd), lubridate::minute(pd)))
 }
 
 #' Extract marks from mark status field
