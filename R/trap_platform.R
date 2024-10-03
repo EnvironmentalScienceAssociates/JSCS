@@ -30,10 +30,10 @@ prep_tp_main <- function(tp_main_raw){
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
     dplyr::mutate(shift_start = prep_dt_fulcrum(date, shift_start),
                   shift_end = prep_dt_fulcrum(date, shift_end),
-                  shift_hrs = as.numeric(difftime(shift_end, shift_start, units = "hours")),
+                  shift_hrs = round(as.numeric(difftime(shift_end, shift_start, units = "hours")), 2),
                   trap_close = prep_dt_fulcrum(date, trap_close),
                   trap_open = prep_dt_fulcrum(date, trap_open),
-                  open_hrs = as.numeric(difftime(trap_open, trap_close, units = "hours"))) |>
+                  open_hrs = round(as.numeric(difftime(trap_open, trap_close, units = "hours")), 2)) |>
     dplyr::relocate(shift_hrs, .after = shift_end) |>
     dplyr::relocate(open_hrs, .after = trap_open) |>
     dplyr::relocate(tp_main_id, .after = dplyr::last_col())  |>
@@ -74,7 +74,7 @@ prep_tp_velocity <- function(tp_velocity_raw, tp_main){
   tp_velocity_raw |>
     dplyr::rename(tp_velocity_id = `_child_record_id`, tp_main_id = `_parent_id`) |>
     dplyr::select(!starts_with("_"))  |>
-    dplyr::mutate(velocity_fps = sqrt(u_fps^2 + v_fps^2 + w_fps^2)) |>
+    dplyr::mutate(velocity_fps = round(sqrt(u_fps^2 + v_fps^2 + w_fps^2), 2)) |>
     dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check, debris_loading, trap_cleaned)) |>
     dplyr::relocate(date, trap_check, debris_loading, trap_cleaned, .before = tp_velocity_id) |>
     dplyr::relocate(tp_velocity_id, tp_main_id, .after = dplyr::last_col()) |>
