@@ -68,8 +68,8 @@ prep_tb_sensor <- function(tb_sensor_raw, tb_buoy){
   tb_sensor_raw |>
     dplyr::rename(tb_sensor_id = `_child_record_id`, tb_buoy_id = `_parent_id`) |>
     dplyr::select(!dplyr::starts_with("_")) |>
-    dplyr::left_join(dplyr::select(tb_buoy, tb_buoy_id, date, location_old, location)) |>
-    dplyr::relocate(date, location_old, location, .before = tb_sensor_id) |>
+    dplyr::left_join(dplyr::select(tb_buoy, tb_buoy_id, date, location)) |>
+    dplyr::relocate(date, location, .before = tb_sensor_id) |>
     dplyr::relocate(tb_sensor_id, tb_buoy_id, .after = dplyr::last_col()) |>
     dplyr::arrange(desc(date))
 }
