@@ -75,8 +75,8 @@ prep_tp_velocity <- function(tp_velocity_raw, tp_main){
     dplyr::rename(tp_velocity_id = `_child_record_id`, tp_main_id = `_parent_id`) |>
     dplyr::select(!starts_with("_"))  |>
     dplyr::mutate(velocity_fps = sqrt(u_fps^2 + v_fps^2 + w_fps^2)) |>
-    dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check)) |>
-    dplyr::relocate(date, trap_check, .before = tp_velocity_id) |>
+    dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check, debris_loading, trap_cleaned)) |>
+    dplyr::relocate(date, trap_check, debris_loading, trap_cleaned, .before = tp_velocity_id) |>
     dplyr::relocate(tp_velocity_id, tp_main_id, .after = dplyr::last_col()) |>
     dplyr::arrange(desc(date))
 }
@@ -95,8 +95,8 @@ prep_tp_wq <- function(tp_wq_raw, tp_main){
   tp_wq_raw |>
     dplyr::rename(tp_wq_id = `_child_record_id`, tp_main_id = `_parent_id`) |>
     dplyr::select(!starts_with("_")) |>
-    dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check)) |>
-    dplyr::relocate(date, trap_check, .before = tp_wq_id) |>
+    dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check, debris_loading, trap_cleaned)) |>
+    dplyr::relocate(date, trap_check, debris_loading, trap_cleaned, .before = tp_wq_id) |>
     dplyr::relocate(tp_wq_id, tp_main_id, .after = dplyr::last_col()) |>
     dplyr::arrange(desc(date))
 }
