@@ -36,7 +36,7 @@ from_canonical <- function(x){
 
 fix_clip_loc <- function(x){
   dplyr::case_when(
-    is.na(x) | x == "na" ~ "NA",
+    is.na(x) | x == "na" ~ NA_character_,
     x == "caud-fin" ~ "Lower Caudal",
     TRUE ~ from_canonical(x)
   )
@@ -53,7 +53,7 @@ fix_clip_loc <- function(x){
 
 fix_other_mark_desc <- function(x){
   dplyr::case_when(
-    is.na(x) | x %in% c("n/a", "na", "none", "did not appear to have BB") ~ "NA",
+    is.na(x) | x %in% c("n/a", "na", "none", "did not appear to have BB") ~ NA_character_,
     x %in% c("bismark", "bismark brown", "bismarck brown", "bismarck brroown", "bizmarck brown", "Bismark Brown", "bb", "BB") ~ "Bismarck Brown",
     TRUE ~ x
   )
