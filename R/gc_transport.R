@@ -28,7 +28,7 @@ prep_gct_main <- function(gct_main_raw){
     dplyr::rename(gct_main_id = `_record_id`) |>
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
     dplyr::relocate(gct_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum general comments table
@@ -43,7 +43,7 @@ prep_gct_main <- function(gct_main_raw){
 prep_gct_gc <- function(gct_main){
   gct_main |>
     dplyr::select(date, general_comments) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum transport main table
@@ -58,7 +58,7 @@ prep_gct_gc <- function(gct_main){
 prep_gct_transport <- function(gct_main){
   gct_main |>
     dplyr::select(-general_comments) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum transport water quality table
@@ -78,7 +78,7 @@ prep_gct_transport_wq <- function(gct_wq_raw, gct_transport){
     dplyr::mutate(datetime = prep_dt_fulcrum(date, time)) |>
     dplyr::select(date, datetime, location = water_quality_location,
                   temp_c, do_sat, do_mgl, gct_wq_id, gct_main_id) |>
-    dplyr::arrange(desc(datetime))
+    dplyr::arrange(dplyr::desc(datetime))
 }
 
 

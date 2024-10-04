@@ -29,7 +29,7 @@ prep_ett_main <- function(ett_main_raw){
     dplyr::rename(ett_main_id = `_record_id`) |>
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
     dplyr::relocate(ett_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum efficiency transport table
@@ -59,7 +59,7 @@ prep_ett_transport <- function(ett_transport_raw, ett_td_raw, ett_main){
     dplyr::select(-time) |>
     dplyr::relocate(date, datetime, .before = ett_td_id) |>
     dplyr::relocate(ett_td_id, ett_transport_id, ett_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(datetime))
+    dplyr::arrange(dplyr::desc(datetime))
 }
 
 #' Prepare Fulcrum efficiency tempering table
@@ -81,5 +81,5 @@ prep_ett_tempering <- function(ett_tempering_raw, ett_main){
                   fish_condition = tempering_fish_condition, temp_c = tempering_temp_c,
                   do_sat = tempering_do_sat, do_mgl = tempering_do_mgl,
                   notes = tempering_notes, ett_transport_id, ett_main_id) |>
-    dplyr::arrange(desc(datetime))
+    dplyr::arrange(dplyr::desc(datetime))
 }

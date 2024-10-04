@@ -28,7 +28,7 @@ prep_adcp_main <- function(adcp_main_raw){
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
     dplyr::mutate(adcp_clock_time = prep_time_fulcrum(adcp_clock_time)) |>
     dplyr::relocate(adcp_main_id, .after = dplyr::last_col())  |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum ADCP transect table
@@ -48,5 +48,5 @@ prep_adcp_transect <- function(adcp_transect_raw, adcp_main){
     dplyr::left_join(dplyr::select(adcp_main, adcp_main_id, date)) |>
     dplyr::relocate(date, .before = adcp_transect_id) |>
     dplyr::relocate(adcp_transect_id, adcp_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }

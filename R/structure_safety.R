@@ -32,7 +32,7 @@ prep_ssi_main <- function(ssi_main_raw){
     dplyr::mutate(start_time = prep_dt_fulcrum(date, start_time),
                   end_time = prep_dt_fulcrum(date, end_time)) |>
     dplyr::relocate(ssi_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum debris boom inspection table
@@ -53,7 +53,7 @@ prep_ssi_debris_boom <- function(ssi_debris_boom_raw, ssi_main){
                   debris_present = debris_boom_debris_present, debris_details,
                   debris_removed, debris_removal_details, debris_boom_notes,
                   ssi_debris_boom_id, ssi_main_id) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum guidance net anchor inspection table
@@ -74,7 +74,7 @@ prep_ssi_net_anchor <- function(ssi_net_anchor_raw, ssi_main){
     dplyr::select(date, datetime, anchor = guidance_net_anchor, anchor_load_lbs,
                   anchor_status = guidance_net_anchor_status,
                   ssi_net_anchor_id, ssi_main_id) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum guidance net dock inspection table
@@ -94,7 +94,7 @@ prep_ssi_net_dock <- function(ssi_net_dock_raw, ssi_main){
     dplyr::select(date, dock = guidance_net_dock, connection_status,
                   debris_present = guidance_net_debris_present,
                   ssi_net_dock_id, ssi_main_id) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum structure inspection table
@@ -114,6 +114,6 @@ prep_ssi_structure <- function(ssi_structure_raw, ssi_main){
     dplyr::left_join(dplyr::select(ssi_main, ssi_main_id, date)) |>
     dplyr::relocate(ssi_main_id, .before = ssi_structure_id) |>
     dplyr::relocate(ssi_structure_id, ssi_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 

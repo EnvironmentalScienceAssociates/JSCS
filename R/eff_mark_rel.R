@@ -29,7 +29,7 @@ prep_emr_main <- function(emr_main_raw){
     dplyr::rename(emr_main_id = `_record_id`) |>
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
     dplyr::relocate(emr_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date_mark))
+    dplyr::arrange(dplyr::desc(date_mark))
 }
 
 #' Prepare Fulcrum efficiency marking table
@@ -51,7 +51,7 @@ prep_emr_mark <- function(emr_mark_raw, emr_main){
                   end_time = prep_dt_fulcrum(date, end_time)) |>
     dplyr::relocate(date, .before = emr_mark_id) |>
     dplyr::relocate(emr_mark_id, emr_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum efficiency marking fork length table
@@ -71,7 +71,7 @@ prep_emr_fl <- function(emr_fl_raw, emr_mark){
     dplyr::left_join(dplyr::select(emr_mark, emr_mark_id, date, release_batch)) |>
     dplyr::relocate(date, .before = emr_fl_id) |>
     dplyr::relocate(emr_fl_id, emr_mark_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum efficiency release table
@@ -92,5 +92,5 @@ prep_emr_rel <- function(emr_rel_raw, emr_main){
     dplyr::mutate(release_time = prep_dt_fulcrum(date, release_time)) |>
     dplyr::relocate(date, .before = emr_rel_id) |>
     dplyr::relocate(emr_rel_id, emr_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }

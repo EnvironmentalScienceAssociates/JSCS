@@ -31,7 +31,7 @@ prep_ss_main <- function(ss_main_raw){
     dplyr::select(-time) |>
     dplyr::relocate(datetime, .after = date) |>
     dplyr::relocate(ss_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum predator table
@@ -51,7 +51,7 @@ prep_ss_predator <- function(ss_predator_raw, ss_main){
     dplyr::left_join(dplyr::select(ss_main, ss_main_id, date)) |>
     dplyr::relocate(date, .before = ss_predator_id) |>
     dplyr::relocate(ss_predator_id, ss_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum stomach contents table
@@ -71,6 +71,6 @@ prep_ss_contents <- function(ss_contents_raw, ss_predator){
     dplyr::left_join(dplyr::select(ss_predator, ss_predator_id, date)) |>
     dplyr::relocate(date, .before = ss_contents_id) |>
     dplyr::relocate(ss_contents_id, ss_predator_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 

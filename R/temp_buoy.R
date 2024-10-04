@@ -29,7 +29,7 @@ prep_tb_main <- function(tb_main_raw){
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
     dplyr::mutate(start_time = prep_dt_fulcrum(date, start_time)) |>
     dplyr::relocate(tb_main_id, .after = dplyr::last_col())  |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum temperature buoy table
@@ -51,7 +51,7 @@ prep_tb_buoy <- function(tb_buoy_raw, tb_main){
                   time_deployed_pst = prep_time_fulcrum(time_deployed_pst)) |>
     dplyr::relocate(date, .before = tb_buoy_id) |>
     dplyr::relocate(tb_buoy_id, tb_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum temperature sensor table
@@ -71,5 +71,5 @@ prep_tb_sensor <- function(tb_sensor_raw, tb_buoy){
     dplyr::left_join(dplyr::select(tb_buoy, tb_buoy_id, date, location)) |>
     dplyr::relocate(date, location, .before = tb_sensor_id) |>
     dplyr::relocate(tb_sensor_id, tb_buoy_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }

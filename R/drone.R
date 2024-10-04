@@ -29,7 +29,7 @@ prep_drone_main <- function(drone_main_raw){
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
     dplyr::mutate(uav_clock_time = prep_time_fulcrum(uav_clock_time)) |>
     dplyr::relocate(drone_main_id, .after = dplyr::last_col())  |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare Fulcrum drone flight table
@@ -51,5 +51,5 @@ prep_drone_flight <- function(drone_flight_raw, drone_main){
                   end_time = prep_time_fulcrum(end_time)) |>
     dplyr::relocate(date, .before = drone_transect_id) |>
     dplyr::relocate(drone_transect_id, drone_main_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 }
