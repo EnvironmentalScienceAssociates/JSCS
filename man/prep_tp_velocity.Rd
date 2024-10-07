@@ -4,10 +4,12 @@
 \alias{prep_tp_velocity}
 \title{Prepare Fulcrum velocity table}
 \usage{
-prep_tp_velocity(tp_velocity_raw, tp_main)
+prep_tp_velocity(tp_velocity_raw, tp_velocity_details_raw, tp_main)
 }
 \arguments{
 \item{tp_velocity_raw}{Unprocessed velocity table}
+
+\item{tp_velocity_details_raw}{Unprocessed velocity table}
 
 \item{tp_main}{Processed trap platform main table}
 }

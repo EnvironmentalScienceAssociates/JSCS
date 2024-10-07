@@ -4,10 +4,12 @@
 \alias{get_tp}
 \title{Get Fulcrum trap platform tables}
 \usage{
-get_tp(table = c("main", "perf_config", "velocity", "water_quality"))
+get_tp(
+  table = c("main", "perf_config", "velocity", "velocity_details", "water_quality")
+)
 }
 \arguments{
-\item{table}{Fulcrum table: main, perf_config, velocity, water_quality}
+\item{table}{Fulcrum table: main, perf_config, velocity, velocity_details, water_quality}
 }
 \description{
 Get Fulcrum trap platform tables

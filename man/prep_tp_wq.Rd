@@ -2,7 +2,7 @@
 % Please edit documentation in R/trap_platform.R
 \name{prep_tp_wq}
 \alias{prep_tp_wq}
-\title{Prepare Fulcrum velocity table}
+\title{Prepare Fulcrum water quality table}
 \usage{
 prep_tp_wq(tp_wq_raw, tp_main)
 }
@@ -12,5 +12,5 @@ prep_tp_wq(tp_wq_raw, tp_main)
 \item{tp_main}{Processed trap platform main table}
 }
 \description{
-Prepare Fulcrum velocity table
+Prepare Fulcrum water quality table
 }

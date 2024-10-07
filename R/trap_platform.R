@@ -2,15 +2,16 @@
 #'
 #'
 #' @md
-#' @param table       Fulcrum table: main, perf_config, velocity, water_quality
+#' @param table       Fulcrum table: main, perf_config, velocity, velocity_details, water_quality
 #'
 #' @export
 #'
 
-get_tp <- function(table = c("main", "perf_config", "velocity", "water_quality")){
+get_tp <- function(table = c("main", "perf_config", "velocity", "velocity_details", "water_quality")){
   tp_tables = c("main" = "JSCS Trap Platform Activities 2024",
                 "perf_config" = "JSCS Trap Platform Activities 2024/performance_and_configuration",
-                "velocity" = "JSCS Trap Platform Activities 2024/velocity_data",
+                "velocity" = "JSCS Trap Platform Activities 2024/velocity",
+                "velocity_details" = "JSCS Trap Platform Activities 2024/velocity_details",
                 "water_quality" = "JSCS Trap Platform Activities 2024/water_quality_data")
   fulcrumr::fulcrum_table(tp_tables[[table]])
 }
@@ -64,24 +65,31 @@ prep_tp_perf_config <- function(tp_perf_config_raw, tp_main){
 #'
 #'
 #' @md
-#' @param tp_velocity_raw     Unprocessed velocity table
-#' @param tp_main             Processed trap platform main table
+#' @param tp_velocity_raw             Unprocessed velocity table
+#' @param tp_velocity_details_raw     Unprocessed velocity table
+#' @param tp_main                     Processed trap platform main table
 #'
 #' @export
 #'
 
-prep_tp_velocity <- function(tp_velocity_raw, tp_main){
-  tp_velocity_raw |>
+prep_tp_velocity <- function(tp_velocity_raw, tp_velocity_details_raw, tp_main){
+  vel_meta = tp_velocity_raw |>
     dplyr::rename(tp_velocity_id = `_child_record_id`, tp_main_id = `_parent_id`) |>
     dplyr::select(!starts_with("_"))  |>
+    dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check, debris_loading, trap_cleaned))
+
+  tp_velocity_details_raw |>
+    dplyr::rename(tp_velocity_details_id = `_child_record_id`, tp_velocity_id = `_parent_id`) |>
+    dplyr::select(!starts_with("_"))  |>
     dplyr::mutate(velocity_fps = round(sqrt(u_fps^2 + v_fps^2 + w_fps^2), 2)) |>
-    dplyr::left_join(dplyr::select(tp_main, tp_main_id, date, trap_check, debris_loading, trap_cleaned)) |>
-    dplyr::relocate(date, trap_check, debris_loading, trap_cleaned, .before = tp_velocity_id) |>
-    dplyr::relocate(tp_velocity_id, tp_main_id, .after = dplyr::last_col()) |>
+    dplyr::left_join(vel_meta) |>
+    dplyr::relocate(date, trap_check, debris_loading, trap_cleaned, clean_status, velocity_measured_by,
+                    adv_file_name, .before = tp_velocity_details_id) |>
+    dplyr::relocate(tp_velocity_details_id, tp_velocity_id, tp_main_id, .after = dplyr::last_col()) |>
     dplyr::arrange(dplyr::desc(date))
 }
 
-#' Prepare Fulcrum velocity table
+#' Prepare Fulcrum water quality table
 #'
 #'
 #' @md
