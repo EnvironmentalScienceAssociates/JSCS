@@ -4,7 +4,13 @@
 \alias{prep_tc_stomach}
 \title{Prepare DELVE trap collection stomach data}
 \usage{
-prep_tc_stomach(tc_stomach_raw, tc_fish_raw, tc_fish, tc_plus)
+prep_tc_stomach(
+  tc_stomach_raw,
+  tc_fish_raw,
+  tc_fish,
+  tc_fish_stomach,
+  tc_plus_stomach
+)
 }
 \arguments{
 \item{tc_stomach_raw}{Unprocessed trap collection stomach data}
@@ -13,9 +19,9 @@ prep_tc_stomach(tc_stomach_raw, tc_fish_raw, tc_fish, tc_plus)
 
 \item{tc_fish}{Processed trap collection fish measurement data}
 
-\item{tc_plus}{Processed trap collection plus count data}
+\item{tc_fish_stomach}{Processed trap collection stomach data from fish measurement table}
 
-\item{min_date}{First date to use for trap collection data}
+\item{tc_plus_stomach}{Processed trap collection stomach data from plus count table}
 }
 \description{
 Prepare DELVE trap collection stomach data
