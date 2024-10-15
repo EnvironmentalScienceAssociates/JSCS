@@ -112,7 +112,7 @@ prep_ssi_structure <- function(ssi_structure_raw, ssi_main){
     dplyr::rename(ssi_structure_id = `_child_record_id`, ssi_main_id = `_parent_id`, dock = structure_dock) |>
     dplyr::select(!dplyr::starts_with("_")) |>
     dplyr::left_join(dplyr::select(ssi_main, ssi_main_id, date)) |>
-    dplyr::relocate(ssi_main_id, .before = ssi_structure_id) |>
+    dplyr::relocate(date, .before = ssi_structure_id) |>
     dplyr::relocate(ssi_structure_id, ssi_main_id, .after = dplyr::last_col()) |>
     dplyr::arrange(dplyr::desc(date))
 }
