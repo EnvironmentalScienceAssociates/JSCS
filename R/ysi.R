@@ -66,6 +66,7 @@ prep_ysi_depth <- function(ysi_depth_raw, ysi_sample){
   ysi_depth_raw |>
     dplyr::rename(ysi_depth_id = `_child_record_id`, ysi_sample_id = `_parent_id`) |>
     dplyr::select(!dplyr::starts_with("_")) |>
+    dplyr::mutate(depth_level = as.factor(depth_level)) |>
     dplyr::left_join(dplyr::select(ysi_sample, ysi_sample_id, date, sample_location)) |>
     dplyr::mutate(start_time_pst = prep_time_fulcrum(start_time_pst)) |>
     dplyr::relocate(date, sample_location, .before = ysi_depth_id) |>

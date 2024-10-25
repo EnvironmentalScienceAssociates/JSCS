@@ -28,6 +28,7 @@ prep_fp_main <- function(fp_main_raw){
   fp_main_raw |>
     dplyr::rename(fp_main_id = `_record_id`) |>
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
+    dplyr::mutate(trap_check = as.factor(trap_check)) |>
     dplyr::relocate(dplyr::contains("id"), .after = dplyr::last_col()) |>
     dplyr::arrange(dplyr::desc(date))
 }

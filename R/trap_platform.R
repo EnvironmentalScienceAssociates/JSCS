@@ -29,7 +29,8 @@ prep_tp_main <- function(tp_main_raw){
   tp_main_raw |>
     dplyr::rename(tp_main_id = `_record_id`) |>
     dplyr::select(!dplyr::starts_with("_") & !dplyr::contains("photos")) |>
-    dplyr::mutate(shift_start = prep_dt_fulcrum(date, shift_start),
+    dplyr::mutate(trap_check = as.factor(trap_check),
+                  shift_start = prep_dt_fulcrum(date, shift_start),
                   shift_end = prep_dt_fulcrum(date, shift_end),
                   shift_hrs = round(as.numeric(difftime(shift_end, shift_start, units = "hours")), 2),
                   trap_close = prep_dt_fulcrum(date, trap_close),
@@ -81,7 +82,8 @@ prep_tp_velocity <- function(tp_velocity_raw, tp_velocity_details_raw, tp_main){
   tp_velocity_details_raw |>
     dplyr::rename(tp_velocity_details_id = `_child_record_id`, tp_velocity_id = `_parent_id`) |>
     dplyr::select(!starts_with("_"))  |>
-    dplyr::mutate(velocity_fps = round(sqrt(u_fps^2 + v_fps^2 + w_fps^2), 2)) |>
+    dplyr::mutate(adv_depth_ft = as.factor(adv_depth_ft),
+                  velocity_fps = round(sqrt(u_fps^2 + v_fps^2 + w_fps^2), 2)) |>
     dplyr::left_join(vel_meta) |>
     dplyr::relocate(date, trap_check, debris_loading, trap_cleaned, clean_status, velocity_measured_by,
                     adv_file_name, .before = tp_velocity_details_id) |>
