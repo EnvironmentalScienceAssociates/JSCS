@@ -244,14 +244,33 @@ prep_si_trap <- function(si_trap_raw, si_guidance_raw, min_date = min_tc_date, t
 #'
 
 prep_si_velocity <- function(si_velocity_raw, si_trap){
-  si_velocity_raw |>
+  tmp = si_velocity_raw |>
     fix_names() |>
     dplyr::rename(si_velocity_id = recordkey, si_trap_id = parentrecordkey) |>
-    dplyr::left_join(dplyr::select(si_trap, si_trap_id, date)) |>
     dplyr::select(-sampleid, -sampledate, -lastupdatedate) |>
-    dplyr::relocate(date, .before = si_velocity_id) |>
-    dplyr::relocate(comments, si_velocity_id, si_trap_id, .after = dplyr::last_col()) |>
-    dplyr::arrange(dplyr::desc(date))
+    dplyr::mutate(x_velocity = fix_velocity(x_velocity, x_veloc_neg),
+                  y_velocity = fix_velocity(y_velocity, y_veloc_neg),
+                  z_velocity = fix_velocity(z_velocity, z_veloc_neg),
+                  depth = ifelse(grepl("depth 3|3 ft", sample_location, ignore.case = TRUE), "3 ft",
+                                 ifelse(grepl("depth 1|1 ft", sample_location, ignore.case = TRUE), "1 ft", "NA")),
+                  loc = ifelse(grepl("DS", sample_location, ignore.case = TRUE), "DS",
+                               ifelse(grepl("US", sample_location, ignore.case = TRUE), "US", "NA")),
+                  fyke = ifelse(grepl("F1", sample_location, ignore.case = TRUE), "F1",
+                                ifelse(grepl("F2", sample_location, ignore.case = TRUE), "F2", "NA")))
+
+  si_trap |>
+    dplyr::select(si_trap_id, date, datetime, velocity_fps_overall1 = velocity_fps) |>
+    dplyr::left_join(dplyr::select(tmp, si_velocity_id, si_trap_id, sample_location,
+                                   fyke, loc, depth, modification_status, cleaning_status,
+                                   x_velocity, y_velocity, z_velocity, velocity_fps_overall2 = velocity_fps, comments)) |>
+    dplyr::ungroup() |>
+    dplyr::mutate(velocity_fps_xyz = sqrt(x_velocity^2 + y_velocity^2 + z_velocity^2),
+                  velocity_fps_sel = ifelse(!is.na(velocity_fps_xyz), velocity_fps_xyz,
+                                            ifelse(!is.na(velocity_fps_overall2), velocity_fps_overall2, velocity_fps_overall1))) |>
+    dplyr::select(date, datetime, sample_location, fyke, loc, depth, modification_status, cleaning_status,
+                  velocity_fps_overall1, velocity_fps_overall2, x_velocity, y_velocity, z_velocity, velocity_fps_xyz,
+                  velocity_fps_sel, comments, si_velocity_id, si_trap_id) |>
+    dplyr::arrange(dplyr::desc(datetime))
 }
 
 #' Prepare DELVE dock inspection data
