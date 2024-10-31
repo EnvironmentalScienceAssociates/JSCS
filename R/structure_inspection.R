@@ -335,16 +335,56 @@ prep_si_float <- function(si_float_raw, si_curtain_raw, min_date = min_tc_date, 
 #'
 #' @md
 #' @param si_anchor_raw       Unprocessed anchor inspection data
+#' @param si_boom_raw         Unprocessed boom inspection data
+#' @param si_guidance_raw     Unprocessed guidance net inspection data
+#' @param si_curtain_raw      Unprocessed temperature curtain inspection data
 #' @param min_date            First date to use for structure inspection data
 #' @param tz                  Time zone name
 #'
 #' @export
 #'
 
-prep_si_anchor <- function(si_anchor_raw, min_date = min_tc_date, tz = tz_loc){
-  si_anchor_raw |>
+prep_si_anchor <- function(si_anchor_raw, si_boom_raw, si_guidance_raw, si_curtain_raw,
+                           min_date = min_tc_date, tz = tz_loc){
+  tmp = si_anchor_raw |>
     fix_names() |>
-    dplyr::rename(si_anchor_id = recordkey) |>
+    dplyr::rename(si_anchor_id = recordkey)
+
+  # todo: clean up the redundancy in the next 3 blocks of code
+  tmp_boom = tmp |>
+    dplyr::left_join(si_boom_raw |>
+                       create_links("RecordKey", "river-right-anchoring-system-inspection") |>
+                       dplyr::rename(si_boom_id = parent, si_anchor_id = child)) |>
+    dplyr::filter(!is.na(si_boom_id)) |>
+    dplyr::bind_rows(tmp |>
+                       dplyr::left_join(si_boom_raw |>
+                                          create_links("RecordKey", "river-left-anchoring-system-inspection") |>
+                                          dplyr::rename(si_boom_id = parent, si_anchor_id = child)) |>
+                       dplyr::filter(!is.na(si_boom_id)))
+
+  tmp_guidance = tmp |>
+    dplyr::left_join(si_guidance_raw |>
+                       create_links("RecordKey", "river-right-anchor-inspection") |>
+                       dplyr::rename(si_guidance_id = parent, si_anchor_id = child)) |>
+    dplyr::filter(!is.na(si_guidance_id)) |>
+    dplyr::bind_rows(tmp |>
+                       dplyr::left_join(si_guidance_raw |>
+                                          create_links("RecordKey", "river-left-anchor-inspection") |>
+                                          dplyr::rename(si_guidance_id = parent, si_anchor_id = child)) |>
+                       dplyr::filter(!is.na(si_guidance_id)))
+
+  tmp_curtain = tmp |>
+    dplyr::left_join(si_curtain_raw |>
+                       create_links("RecordKey", "river-right-anchor-inspection") |>
+                       dplyr::rename(si_curtain_id = parent, si_anchor_id = child)) |>
+    dplyr::filter(!is.na(si_curtain_id)) |>
+    dplyr::bind_rows(tmp |>
+                       dplyr::left_join(si_curtain_raw |>
+                                          create_links("RecordKey", "river-left-anchor-inspection") |>
+                                          dplyr::rename(si_curtain_id = parent, si_anchor_id = child)) |>
+                       dplyr::filter(!is.na(si_curtain_id)))
+
+  test = dplyr::bind_rows(list(tmp_boom, tmp_guidance, tmp_curtain)) |>
     dplyr::mutate(datetime = prep_dt_delve(inspection_datetime),
                   date = as.Date(datetime, tz = tz),
                   river_position = from_canonical(river_position),
@@ -354,6 +394,7 @@ prep_si_anchor <- function(si_anchor_raw, min_date = min_tc_date, tz = tz_loc){
     dplyr::filter(date >= min_date) |>
     dplyr::select(date, datetime, river_position, anchored_structure, anchor_type,
                   # wrong units used in original name for load
-                  anchor_status, load_lbs = load_kn, comments, si_anchor_id) |>
+                  anchor_status, load_lbs = load_kn, comments, si_anchor_id,
+                  si_boom_id, si_guidance_id, si_curtain_id) |>
     dplyr::arrange(dplyr::desc(datetime))
 }

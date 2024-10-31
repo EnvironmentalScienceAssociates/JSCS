@@ -4,10 +4,23 @@
 \alias{prep_si_anchor}
 \title{Prepare DELVE anchor inspection data}
 \usage{
-prep_si_anchor(si_anchor_raw, min_date = min_tc_date, tz = tz_loc)
+prep_si_anchor(
+  si_anchor_raw,
+  si_boom_raw,
+  si_guidance_raw,
+  si_curtain_raw,
+  min_date = min_tc_date,
+  tz = tz_loc
+)
 }
 \arguments{
 \item{si_anchor_raw}{Unprocessed anchor inspection data}
+
+\item{si_boom_raw}{Unprocessed boom inspection data}
+
+\item{si_guidance_raw}{Unprocessed guidance net inspection data}
+
+\item{si_curtain_raw}{Unprocessed temperature curtain inspection data}
 
 \item{min_date}{First date to use for structure inspection data}
 
