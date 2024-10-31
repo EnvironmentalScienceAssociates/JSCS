@@ -62,13 +62,6 @@ prep_wq_station <- function(wq_station_raw, wq_meta_raw, wq_meta){
     dplyr::left_join(dplyr::select(wq_meta, wq_meta_id, date, start_datetime, end_datetime)) |>
     # samples with no date are from before the min_date
     dplyr::filter(!is.na(date)) |>
-    dplyr::mutate(datetime = prep_dt_delve(sampling_datetime),
-                  date = as.Date(datetime, tz = tz),
-                  species = from_canonical(common_name),
-                  lifestage = stringr::str_to_title(lifestage),
-                  clip_loc = fix_clip_loc(clip_loc),
-                  pit_applied = ifelse(pit_applied, "Yes", "No"),
-                  other_mark_desc = fix_other_mark_desc(other_mark_desc)) |>
     dplyr::select(date, start_datetime, end_datetime, station_id, latitude, longitude,
                   depth_m, depth_ft, comments, wq_station_id, wq_meta_id) |>
     dplyr::arrange(dplyr::desc(start_datetime))
