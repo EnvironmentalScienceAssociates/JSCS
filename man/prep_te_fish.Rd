@@ -4,16 +4,16 @@
 \alias{prep_te_fish}
 \title{Prepare DELVE trap efficiency fish data}
 \usage{
-prep_te_fish(te_fish_raw, tc_meta_raw, min_date = min_tc_date, tz = tz_loc)
+prep_te_fish(te_fish_raw, te_meta_raw, min_date = min_tc_date, tz = tz_loc)
 }
 \arguments{
 \item{te_fish_raw}{Unprocessed trap collection fish measurement data}
 
+\item{te_meta_raw}{Unprocessed trap collection metadata}
+
 \item{min_date}{First date to use for trap efficiency data}
 
 \item{tz}{Time zone name}
-
-\item{te_meta_raw}{Unprocessed trap collection metadata}
 }
 \description{
 Prepare DELVE trap efficiency fish data
