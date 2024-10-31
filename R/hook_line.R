@@ -93,8 +93,8 @@ prep_hl_wq <- function(hl_wq_raw, hl_meta_raw, min_date = min_hl_date, tz = tz_l
     dplyr::mutate(datetime = prep_dt_delve(datetime),
                   date = as.Date(datetime, tz = tz)) |>
     dplyr::filter(date >= min_date) |>
-    dplyr::select(date, datetime, sampling_lat = latitude, sampling_lon = longitude,
-                  depth_m, comments, hl_wq_id, hl_meta_id) |>
+    dplyr::select(date, datetime, sampling_loc = station_id, sampling_lat = latitude,
+                  sampling_lon = longitude, depth_m, comments, hl_wq_id, hl_meta_id) |>
     dplyr::arrange(dplyr::desc(datetime))
 }
 
