@@ -34,7 +34,7 @@ prep_te_meta <- function(te_meta_raw, min_date = min_tc_date, tz = tz_loc){
   te_meta_raw |>
     fix_names() |>
     dplyr::mutate(datetime = prep_dt_delve(sampling_datetime),
-                  date = as.Date(sampling_datetime, tz = tz)) |>
+                  date = as.Date(datetime, tz = tz)) |>
     dplyr::filter(date >= min_date) |>
     dplyr::select(date, datetime, location = sampling_loc, lat = sampling_lat,
                   lon = sampling_long, crew, comments, te_meta_id = recordkey) |>
