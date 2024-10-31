@@ -198,7 +198,7 @@ prep_tc_stomach <- function(tc_stomach_raw, tc_fish_raw, tc_fish, tc_fish_stomac
     dplyr::mutate(count = ifelse(!is.na(tc_stomach_id), 1, predated_salmon)) |>
     dplyr::select(date, count, fork_length, clip_loc, comments,
                   tc_stomach_id, tc_fish_id, tc_plus_id, tc_meta_id) |>
-    dplyr::arrange(dplyr::desc(date)) |> View()
+    dplyr::arrange(dplyr::desc(date))
 }
 
 #' Prepare DELVE trap collection transport data
