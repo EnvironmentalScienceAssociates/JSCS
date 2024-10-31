@@ -53,11 +53,11 @@ prep_te_meta <- function(te_meta_raw, min_date = min_tc_date, tz = tz_loc){
 #' @export
 #'
 
-prep_te_fish <- function(te_fish_raw, tc_meta_raw, min_date = min_tc_date, tz = tz_loc){
+prep_te_fish <- function(te_fish_raw, te_meta_raw, min_date = min_tc_date, tz = tz_loc){
   te_fish_raw |>
     fix_names() |>
     dplyr::rename(te_fish_id = recordkey) |>
-    dplyr::left_join(tc_meta_raw |>
+    dplyr::left_join(te_meta_raw |>
                        create_links("RecordKey", "fish-data") |>
                        dplyr::rename(te_meta_id = parent, te_fish_id = child)) |>
     dplyr::mutate(datetime = prep_dt_delve(sampling_datetime),
