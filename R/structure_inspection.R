@@ -384,7 +384,7 @@ prep_si_anchor <- function(si_anchor_raw, si_boom_raw, si_guidance_raw, si_curta
                                           dplyr::rename(si_curtain_id = parent, si_anchor_id = child)) |>
                        dplyr::filter(!is.na(si_curtain_id)))
 
-  test = dplyr::bind_rows(list(tmp_boom, tmp_guidance, tmp_curtain)) |>
+  dplyr::bind_rows(list(tmp_boom, tmp_guidance, tmp_curtain)) |>
     dplyr::mutate(datetime = prep_dt_delve(inspection_datetime),
                   date = as.Date(datetime, tz = tz),
                   river_position = from_canonical(river_position),
