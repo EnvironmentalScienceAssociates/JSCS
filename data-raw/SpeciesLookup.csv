@@ -1,0 +1,28 @@
+species,predator_grp,species_grp
+American Shad,Non-predator,Shad
+Black Bass,Predator,Bass
+Black Crappie,Predator,Sunfish
+Bluegill,Non-predator,Sunfish
+Brown Bullhead,Predator,Bullhead
+Brown Trout,Predator,Salmonid
+Centrarchidae,Non-predator,Sunfish
+Channel Catfish,Predator,Non-native Cyprinid
+Chinook Salmon,Non-predator,Salmonid
+Common Carp,Predator,Non-native Cyprinid
+Cottus Spp,Predator,Sculpin
+Crappie,Predator,Sunfish
+Cyprinid,Non-predator,Non-native Cyprinid
+Green Sunfish,Predator,Sunfish
+Largemouth Bass,Predator,Bass
+Prickly Sculpin,Predator,Sculpin
+Pumpkinseed,Non-predator,Sunfish
+Rainbow Trout,Predator,Salmonid
+Riffle Sculpin,Predator,Sculpin
+Sacramento Pikeminnow,Predator,Pikeminnow
+Smallmouth Bass,Predator,Bass
+Spotted Bass,Predator,Bass
+Striped Bass,Predator,Bass
+Sunfish,Non-predator,Sunfish
+Threadfin Shad,Non-predator,Shad
+White Catfish,Predator,Bullhead
+White Crappie,Predator,Sunfish

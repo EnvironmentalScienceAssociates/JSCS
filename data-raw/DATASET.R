@@ -10,3 +10,6 @@ use_data(min_tc_date, overwrite = TRUE)
 
 min_hl_date = ymd("2023-08-22", tz = tz_loc)
 use_data(min_hl_date, overwrite = TRUE)
+
+species_lookup = read.csv(file.path("data-raw", "SpeciesLookup.csv"))
+use_data(species_lookup, overwrite = TRUE)
