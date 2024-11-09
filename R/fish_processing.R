@@ -51,6 +51,10 @@ prep_fp_fish <- function(fp_fish_raw, fp_main){
                   measure_type, fl_mm, fish_viewer_id, mark_status = mark_status_measure,
                   pit_tag_id, floy_tag_id, fish_condition = fish_condition_measure, stomach_sampled,
                   disposition, fp_fish_id, fp_main_id) |>
+    dplyr::mutate(species = dplyr::case_when(
+      species == "Bluegill Sunfish" ~ "Bluegill",
+      species == "Pumpkinseed Sunfish" ~ "Pumpkinseed",
+      .default = species)) |>
     dplyr::arrange(dplyr::desc(date))
 }
 
@@ -71,5 +75,9 @@ prep_fp_plus <- function(fp_plus_raw, fp_main){
     dplyr::select(date, trap_check, species = species_plus, lifestage = lifestage_plus,
                   mark_status = mark_status_plus, fish_condition = fish_condition_plus,
                   count = plus_count, fp_plus_id, fp_main_id) |>
+    dplyr::mutate(species = dplyr::case_when(
+      species == "Bluegill Sunfish" ~ "Bluegill",
+      species == "Pumpkinseed Sunfish" ~ "Pumpkinseed",
+      .default = species)) |>
     dplyr::arrange(dplyr::desc(date))
 }
