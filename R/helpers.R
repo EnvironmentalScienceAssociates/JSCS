@@ -167,3 +167,18 @@ extract_condition <- function(data){
                   mortality = grepl("M -", fish_condition))
 }
 
+#' Extract marks from clip location field
+#'
+#'
+#' @md
+#' @param data       Dataframe with clip_loc column
+#'
+#' @export
+#'
+
+extract_clip_loc <- function(data){
+  data |>
+    dplyr::mutate(NM = is.na(clip_loc),
+                  UC = grepl("Upper Caudal", clip_loc),
+                  LC = grepl("Lower Caudal", clip_loc))
+}
