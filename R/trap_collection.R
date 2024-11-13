@@ -120,12 +120,11 @@ prep_tc_fish_stomach <- function(tc_fish_raw, tc_meta_raw, tz = tz_loc){
 #' @param tc_plus_raw     Unprocessed trap collection plus count data
 #' @param tc_meta_raw     Unprocessed trap collection metadata
 #' @param tc_meta         Processed trap collection metadata
-#' @param min_date        First date to use for trap collection data
 #'
 #' @export
 #'
 
-prep_tc_plus <- function(tc_plus_raw, tc_meta_raw, tc_meta, min_date = min_tc_date){
+prep_tc_plus <- function(tc_plus_raw, tc_meta_raw, tc_meta){
   tc_plus_raw |>
     fix_names() |>
     dplyr::rename(tc_plus_id = recordkey) |>
@@ -143,7 +142,8 @@ prep_tc_plus <- function(tc_plus_raw, tc_meta_raw, tc_meta, min_date = min_tc_da
                   other_mark_desc = fix_other_mark_desc(other_mark_desc)) |>
     dplyr::select(date, species, lifestage, clip_loc, other_marks, other_mark_desc, count,
                   mortality, comments, tc_plus_id, tc_meta_id) |>
-    dplyr::filter(count > 0) |>
+    # missing date means that catch was before min_tc_date
+    dplyr::filter(!is.na(date) & count > 0) |>
     dplyr::arrange(dplyr::desc(date))
 }
 

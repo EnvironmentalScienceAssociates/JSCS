@@ -4,7 +4,7 @@
 \alias{prep_tc_plus}
 \title{Prepare DELVE trap collection plus count data}
 \usage{
-prep_tc_plus(tc_plus_raw, tc_meta_raw, tc_meta, min_date = min_tc_date)
+prep_tc_plus(tc_plus_raw, tc_meta_raw, tc_meta)
 }
 \arguments{
 \item{tc_plus_raw}{Unprocessed trap collection plus count data}
@@ -12,8 +12,6 @@ prep_tc_plus(tc_plus_raw, tc_meta_raw, tc_meta, min_date = min_tc_date)
 \item{tc_meta_raw}{Unprocessed trap collection metadata}
 
 \item{tc_meta}{Processed trap collection metadata}
-
-\item{min_date}{First date to use for trap collection data}
 }
 \description{
 Prepare DELVE trap collection plus count data
