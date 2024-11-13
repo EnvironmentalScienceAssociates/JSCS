@@ -149,7 +149,11 @@ extract_mark <- function(data){
                   UC = grepl("UC -", mark_status),
                   LC = grepl("LC -", mark_status),
                   BBY = grepl("BB-Y -", mark_status),
-                  VIE = grepl("VIE -", mark_status))
+                  VIE = grepl("VIE -", mark_status),
+                  ADC = grepl("ADC -", mark_status),
+                  AT = grepl("AT -", mark_status),
+                  FT = grepl("FT -", mark_status),
+                  PIT = grepl("PIT", mark_status))
 }
 
 #' Extract condition from fish_condition field
